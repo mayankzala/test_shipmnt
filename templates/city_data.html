@@ -10,7 +10,7 @@
 </div>
 {%else%}
 <div class="city_info ">
-    <div class="card p-4" id="card_i">
+    <div class="card p-4" id="card_i" style="background-image: url('{{data['current']['condition']['icon']}}');">
         <h2>{{data['location']['name'] }}, {{data['location']['region']}}</h2>
         <i>{{data['location']['country']}}</i>
         <h1 id="temp">{{data['current']['temp_c']}}&deg;c</h1>
@@ -23,7 +23,7 @@
 {% endblock %}
 {%block script%}
 <script>
-    document.getElementById("card_i").style.backgroundImage = "url ('{{data['current']['condition']['icon']}}')"
+    // document.getElementById("card_i").style.backgroundImage = "url ({{data['current']['condition']['icon']}})";
     var v=0
     function change(){
         if(v==0){

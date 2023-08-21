@@ -6,3 +6,8 @@
     margin: 2px;
     padding: 1vw;
 }
+#card_i{
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50% 0%;
+}
