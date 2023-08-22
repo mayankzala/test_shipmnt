@@ -1,4 +1,9 @@
+
+body{
+    background-color: rgb(147, 183, 183);
+}
 #weather_display{
+    font-family:Georgia, 'Times New Roman', Times, serif;
     margin:5vw;
     padding: 3vw;
 }

@@ -1,12 +1,13 @@
 {% extends 'home.html' %}
+
 {%block cityInfo%}
 
-{%if error==1%}
+{%if error=="y"%}
 <div class="city_info ">
     <div class="card p-4">
-        <i>code:{{data['error']['message']}}</i>
+        <i>code:{{data['error']['code']}}</i>
         <i><h2>{{data['error']['message']}}</h2></i>
-      </div>
+    </div>
 </div>
 {%else%}
 <div class="city_info ">
@@ -15,15 +16,19 @@
         <i>{{data['location']['country']}}</i>
         <h1 id="temp">{{data['current']['temp_c']}}&deg;c</h1>
         <i><h3>condition:{{data['current']['condition']["text"]}} <img src="{{data['current']['condition']['icon']}}" alt="img not found"></h3></i>
-        <button id="change" class="btn btn-primary" onclick={change()}>Convert to Fahrenheit</button>
-    </div>
-    
+        <button id="change" class="btn btn-primary w-25" onclick={change()}>Convert to Fahrenheit</button>
+    </div>    
 </div>
 {%endif%}
+
 {% endblock %}
+
+
+
+
 {%block script%}
+{%if error!="y"%}
 <script>
-    // document.getElementById("card_i").style.backgroundImage = "url ({{data['current']['condition']['icon']}})";
     var v=0
     function change(){
         if(v==0){
@@ -38,4 +43,5 @@
         }
     }
 </script>
+{%endif%}
 {% endblock %}

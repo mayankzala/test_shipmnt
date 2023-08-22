@@ -15,7 +15,7 @@ def hello_world():
 
 @app.route('/weather_for_city', methods=['POST'])
 def weather_for_city():
-	isError=0
+	isError="n"
 	if request.method == 'POST':
 		city_name=request.form.get('city')
 		  # send a GET request to another site
@@ -25,11 +25,21 @@ def weather_for_city():
 		data=temp.json()
 		if list(data.keys())[0]=='error' :
 			print("yes")
-			isError=1
+			isError="y"
 		print(temp)
 		print(temp.json())
+		print(isError)
 		# Error handling
 		return render_template('city_data.html',data=data,error=isError)
+	
+@app.route('/automatic_location')
+def get_location():
+    print(request.remote_addr)
+    return "a"
+	# url = 'http://freegeoip.net/json/{}'.format(request.remote_addr)
+    # r = requests.get(url)
+    # j = json.loads(r.text)
+    # city = j['city']=
 
 if __name__ == '__main__':
 	app.run(debug=True)
