@@ -10,14 +10,40 @@
     </div>
 </div>
 {%else%}
-<div class="city_info ">
-    <div class="card p-4" id="card_i" style="background-image: url('{{data['current']['condition']['icon']}}');">
+<div class="city_info " >
+    <div class="card m-2" id="card_i" style="background-image: url('{{data['current']['condition']['icon']}}');">
         <h2>{{data['location']['name'] }}, {{data['location']['region']}}</h2>
         <i>{{data['location']['country']}}</i>
         <h1 id="temp">{{data['current']['temp_c']}}&deg;c</h1>
-        <i><h3>condition:{{data['current']['condition']["text"]}} <img src="{{data['current']['condition']['icon']}}" alt="img not found"></h3></i>
+        <i><h3>{{data['current']['condition']["text"]}} <img src="{{data['current']['condition']['icon']}}" alt="img not found"></h3></i>
         <button id="change" class="btn btn-primary w-25" onclick={change()}>Convert to Fahrenheit</button>
     </div>    
+    <div class="table card m-2" id="table">
+        <h4>Next 3 day forecast</h4>
+        <hr> 
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Temp(max)</th>
+                <th scope="col">Temp(min)</th>
+                <th scope="col">Condition</th>
+                <th scope="col">Icon</th>
+              </tr>
+            </thead>
+            <tbody>
+                {%for i in data['forecast']['forecastday']%}
+              <tr>
+                <td>{{i['date']}}</td>
+                <td>{{i['day']['maxtemp_c']}}&deg;c</td>
+                <td>{{i['day']['mintemp_c']}}&deg;c</td>
+                <td>{{i['day']['condition']['text']}}</td>
+                <td><img src="{{i['day']['condition']['icon']}}" alt="img not found" style="height:3vw;"></td>
+              </tr>
+              {%endfor%}
+            </tbody>
+          </table>
+    </div>
 </div>
 {%endif%}
 
@@ -29,6 +55,7 @@
 {%block script%}
 {%if error!="y"%}
 <script>
+    document.getElementById('location').style.display='none';
     var v=0
     function change(){
         if(v==0){

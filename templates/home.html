@@ -13,8 +13,8 @@
 
 <body>
 
-    <div id="weather_display">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div id="weather_display" ">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary card">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/">
 
@@ -58,23 +58,37 @@
                 document.getElementById('location').innerText="Your location weather data"
             }
             else{
-                getLocation();
+                 getLocation();
             }
         }
-        async function getLocation() {
+
+        function getLocation() {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition,()=>{console.log("error")});
+                navigator.geolocation.getCurrentPosition(showPosition,()=>{alert("Location is not turned on!(Turn on Manually)")});
             } else {
                 alert("Geolocation is not supported by this browser.");
             }
         }
 
-        function showPosition(position) {
+        async function  showPosition(position) {
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
             console.log(latitude,longitude);
+            send_data(latitude,longitude);
             // Here, you can send the latitude and longitude to your Flask backend
             // using an AJAX request or a form submission.
+        }
+        async function send_data(latitude,longitude){
+            const response=await fetch('/automatic_location',{
+                method:'POST',
+                headers:{
+                    'Content-type':'application/json'
+                },
+                body:JSON.stringify({'latitude':latitude,'longitude':longitude})
+            });
+            if(!response.ok){
+                console.log("Fail to send location data.");
+            }
         }
     </script>
     {% endblock %}
